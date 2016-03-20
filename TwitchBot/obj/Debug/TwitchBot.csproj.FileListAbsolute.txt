@@ -1,0 +1,13 @@
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Debug\TwitchBot.exe.config
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Debug\TwitchBot.exe
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Debug\TwitchBot.pdb
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.csprojResolveAssemblyReference.cache
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\MainWindow.baml
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\MainWindow.g.cs
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\App.g.cs
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot_MarkupCompile.cache
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.g.resources
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.Properties.Resources.resources
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.csproj.GenerateResource.Cache
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.exe
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.pdb
