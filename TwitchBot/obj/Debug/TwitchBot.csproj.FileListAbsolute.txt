@@ -11,3 +11,5 @@ D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.Properties.Resources.r
 D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.csproj.GenerateResource.Cache
 D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.exe
 D:\netohjelmointi\TwitchBot\TwitchBot\obj\Debug\TwitchBot.pdb
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Debug\Newtonsoft.Json.dll
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Debug\Newtonsoft.Json.xml

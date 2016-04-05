@@ -1,9 +1,15 @@
 ﻿<Window x:Class="TwitchBot.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="TwitchBot" Height="354.93" Width="525" Opacity="0.85">
     <Grid>
-        <Label x:Name="lblChat" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="310" Width="517"/>
+        <Label x:Name="lblViewers" Content="Viewers: 000" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="89" Height="35"/>
+        <Label x:Name="lblViews" Content="Followers: 000" HorizontalAlignment="Left" Margin="119,290,0,0" VerticalAlignment="Top" Height="35"/>
+        <Label x:Name="lblFollowers" Content="Views: 000" HorizontalAlignment="Left" Margin="258,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.464,0.312" Height="35"/>
+
+        <TextBox x:Name="txtChat" HorizontalAlignment="Left" Height="290" Margin="10,0,0,0" TextWrapping="Wrap" Text="Ksättiä tähänä" VerticalAlignment="Top" Width="497" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+         ScrollViewer.VerticalScrollBarVisibility="Auto"
+         ScrollViewer.CanContentScroll="True"/>
 
     </Grid>
 </Window>
