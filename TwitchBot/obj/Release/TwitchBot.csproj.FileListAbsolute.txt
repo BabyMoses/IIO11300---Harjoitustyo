@@ -1,0 +1,15 @@
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Release\TwitchBot.exe.config
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Release\TwitchBot.exe
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Release\TwitchBot.pdb
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Release\Newtonsoft.Json.dll
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Release\Newtonsoft.Json.xml
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.csprojResolveAssemblyReference.cache
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\MainWindow.baml
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\MainWindow.g.cs
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\App.g.cs
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot_MarkupCompile.cache
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.g.resources
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.Properties.Resources.resources
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.csproj.GenerateResource.Cache
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.exe
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.pdb

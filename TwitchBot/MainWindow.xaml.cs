@@ -1,22 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;  //JSON Deserialiser, ladattu erikseen
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Net.Sockets;  //tarvitaan TCP-yhteyteen
 using System.IO;
-using System.Windows.Threading;
 using System.Net;
-using Newtonsoft.Json;  //JSON Deserialiser, ladattu erikseen
+using System.Net.Sockets;  //tarvitaan TCP-yhteyteen
+using System.Windows;
 
 namespace TwitchBot
 {
@@ -29,8 +18,8 @@ namespace TwitchBot
     {
 
 
-        WebClient m_WebClient;
-        string apiUrl;
+        WebClient m_WebClient;  //apia
+        string apiUrl;          //apia
 
 
         String oauth = ConfigurationManager.AppSettings["Path"];  //oauth polku configista
@@ -44,6 +33,7 @@ namespace TwitchBot
         string chatCommandId;
         DateTime lastMessage;
         Queue<string> sendMessageQueue;
+        Boolean timer_Running = false;
 
 
         public MainWindow()
@@ -54,23 +44,54 @@ namespace TwitchBot
 
 
             sendMessageQueue = new Queue<string>(); //viesteille jono
-            this.userName = "babymoses";  //twitch käyttäjän nimi LOWER CASE
+            this.userName = ConfigurationManager.AppSettings["Username"];  //twitch käyttäjän nimi LOWER CASE
+            this.channelName = ConfigurationManager.AppSettings["Channel"]; //chattihuone (ROOM) johon liitytään
             this.password = File.ReadAllText(oauth); //twitch chat OAuth Avain
-            this.channelName = userName;
-            //this.channelName = "turbomarlin";
+            //this.channelName = userName;
             chatCommandId = "PRIVMSG";
             chatMessagePrefix = ":" + userName + "!" + userName + "@" + userName + ".tmi.twitch.tv PRIVMSG #" + channelName + " :";  //viestit näyttää chattiin menneessää tältä
 
             InitializeComponent();
+            Timer();
+          
 
 
-            //timeri chatin päivitykselle
+            /*timeri chatin päivitykselle + botti
+            System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer2.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer2.Interval = new TimeSpan(0, 0, 0, 0, 500);  //päivittää joka sekunti
+             * */
+        }
+
+        private void Timer()
+        {
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);  //päivittää joka sekunti
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);  //päivittää joka sekunti
             dispatcherTimer.Start();
             Reconnect();
+
+            /*
+
+            if (timer_Running == true)
+            {
+                //timeri chatin päivitykselle
+                
+                
+            }
+            else
+            {
+
+                dispatcherTimer.Stop();
+                txtChat.AppendText("\r\n" + "BOOLEAN ON FALSE NYT");
+            }
+            */
+
         }
+
+
+
+
 
         private void Reconnect()
         {
@@ -90,44 +111,86 @@ namespace TwitchBot
             writer.Flush();
             lastMessage = DateTime.Now;
 
+            txtChat.AppendText("\r\n"+"SUCCESFULLY CONNECTED TO CHATROOM #"+channelName); //tulostus
+
 
         }
 
 
+        /*
+
+        private void HandleChecked(object sender, RoutedEventArgs e)
+        {
+            txtChat.AppendText("\r\n" + "toggled XD");
+            timer_Running = true;
+            Timer();
+
+        }
+
+        private void HandleUnchecked(object sender, RoutedEventArgs e)
+        {
+            txtChat.AppendText("\r\n" + "Untoggled XD");
+            timer_Running = false;
+            Timer();
+         
+
+        }
+
+        */
         void dispatcherTimer_Tick(object sender, EventArgs e) //homma toimii timerin perässä
         {
 
 
             if (!tcpClient.Connected)
             {
+                
                 Reconnect();
+                txtChat.AppendText("\r\n" + "SUCCESFULLY CONNECTED TO CHATROOM #" + channelName); //tulostus
             }
 
 
             TrySendingMessages();
             TryReceiveMessages();
-
+            loadApistats();
 
             //txtChat.AppendText("\r\n" + DateTime.Now.Second.ToString());  //testi
 
             // var massage = reader.ReadLine();
             // txtChat.AppendText("\r\n" + massage);
             txtChat.ScrollToEnd();
+            
 
 
         }
 
-        /*
-        void LoadKraken()
+        
+        void loadApistats()  //apia
         {
             //var url = apiUrl + userName;  //käytä tätä
-           var url = "https://api.twitch.tv/kraken/streams/steel_tv";
-           string json = m_WebClient.DownloadString(url);
+           //var url = "https://api.twitch.tv/kraken/streams/steel_tv";
+
+           apiUrl = "https://api.twitch.tv/kraken/streams/"+channelName;
+           string json = m_WebClient.DownloadString(apiUrl);
 
           TwitchTV twitchTV = JsonConvert.DeserializeObject<TwitchTV>(json);
 
+          if (twitchTV.stream != null)
+          {
+
+              // if (twitchTV.stream.channel.followers != 0L) 
+              lblViewers.Content = string.Format("Viewers {0:000}", twitchTV.stream.viewers);
+              lblFollowers.Content = string.Format("Followers {0:000}", twitchTV.stream.channel.followers);
+              lblViews.Content = string.Format("Views {0:000}", twitchTV.stream.channel.views);
+          }
+          else
+          {
+              lblViewers.Content = "Stream Offline";
+              lblFollowers.Content = "";
+              lblViews.Content = "";
+          }
+
         }
-        */
+        
 
 
 
@@ -152,7 +215,7 @@ namespace TwitchBot
             if (tcpClient.Available > 0 || reader.Peek() >= 0)
             {
 
-             
+                
 
                 var message = reader.ReadLine();
                 var iCollon = message.IndexOf(":", 1);
@@ -197,10 +260,10 @@ namespace TwitchBot
 
 
    
-
+            //commands
             if (message.StartsWith("!commands"))
             {
-                SendMessage("Current commands include !moro, !toucan, !nikolas, !merio, !marjo");
+                SendMessage("Current commands include !moro, !toucan, !merio, !marjo, !aim, !specs");
             }
 
             if (message.StartsWith("!moro"))
@@ -214,10 +277,7 @@ namespace TwitchBot
                 SendMessage("                 ▄▄▄▀▀▀▄▄███▄ ░░░░░▄▀▀░░░░░░░▐░▀██▌ ░░░▄▀░░░░▄▄███░▌▀▀░▀█ ░░▄█░░▄▀▀▒▒▒▒▒▄▐░░░░█▌ ░▐█▀▄▀▄▄▄▄▀▀▀▀▌░░░░░▐█▄ ░▌▄▄▀▀░░░░░░░░▌░░░░▄███████▄ ░░░░░░░░░░░░░▐░░░░▐███████████▄ ░░░░░le░░░░░░░▐░░░░▐█████████████▄ ░░░░toucan░░░░░░▀▄░░░▐██████████████▄ ░░░░░░has░░░░░░░░▀▄▄████████████████▄ ░░░░░arrived░░░░░░░░░░░░█▀██████");
             }
 
-            if (message.StartsWith("!nikolas"))
-            {
-                SendMessage("Nikolas on pyllynaama");
-            }
+         
 
             if (message.StartsWith("!merio"))
             {
@@ -229,6 +289,40 @@ namespace TwitchBot
                 SendMessage("░░░░░░░░░░▄▄▄▄░░░░░░ ░░░░░░░▄▀▀▓▓▓▀█░░░░░ ░░░░░▄▀▓▓▄██████▄░░░ ░░░░▄█▄█▀░░▄░▄░█▀░░░ ░░░▄▀░██▄░░▀░▀░▀▄░░░ ░░░▀▄░░▀░▄█▄▄░░▄█▄░░ ░░░░░▀█▄▄░░▀▀▀█▀░░░░ ░░░░░░░█▄▄░░░░█░░░░░ ░░░░░░░█░░░░▀▀█░░░░░ ░░░░░░░█▀▀▀░▄▄█░░░░░ ░░░░░░░█░░░░░░█▄░░░░ ▄▄▄▄██▀▀░░░░░░░▀██░░ ░▄█▀░▀░░░░▄░░░░░░█▄▄ ▀▀█▄▄▄░░░▄██░░░░▄█░░");
             }
 
+            if (message.StartsWith("!specs"))
+            {
+                SendMessage("Ekeen™ vesijäähyt");
+            }
+
+            //containit
+
+            if (message.Contains("aim"))
+            {
+                SendMessage("For me - aim - it is about precision");
+            }
+
+            if (message.Contains("spray"))
+            {
+                SendMessage("For me, spray is about control");
+            }
+
+            if (message.Contains("nikola"))
+            {
+                SendMessage("Nikolas on pyllynaama");
+            }
+
+            //bännit
+            if (message.Contains("slaidu"))
+            {
+                SendMessage("/timeout "+speaker+" 30");
+                SendMessage("Erittäin loso sana");
+            }
+
+            if (message.Contains("lompsa"))
+            {
+                SendMessage("/timeout " + speaker + " 60");
+                SendMessage("Erittäin loso sana");
+            }
         }
 
 

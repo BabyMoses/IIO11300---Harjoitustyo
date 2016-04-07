@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace TwitchBot
 {
     class TwitchTV
     {
-        public Stream stream;
+        public Stream stream { get; set; }
+
+
         public class Stream
         {
+            
             public long viewers { get; set; }
+            public Channel channel { get; set; }
 
             public class Channel
             {
