@@ -13,3 +13,7 @@ D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.Properties.Resources
 D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.csproj.GenerateResource.Cache
 D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.exe
 D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.pdb
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Release\TwitchBot.exe.manifest
+D:\netohjelmointi\TwitchBot\TwitchBot\bin\Release\TwitchBot.application
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.exe.manifest
+D:\netohjelmointi\TwitchBot\TwitchBot\obj\Release\TwitchBot.application

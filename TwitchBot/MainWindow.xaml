@@ -1,22 +1,60 @@
 ﻿<Window x:Class="TwitchBot.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TwitchBot" Height="354.93" Width="525" Opacity="0.85" ResizeMode="CanMinimize">
-    <Grid Background="#FF1B1B1B">
-        <Label x:Name="lblViewers" Content="" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="89" Height="35" Foreground="#FFE4E4E4"/>
-        <Label x:Name="lblViews" Content="" HorizontalAlignment="Left" Margin="119,290,0,0" VerticalAlignment="Top" Height="35" Foreground="#FFE4E4E4" Width="91"/>
-        <Label x:Name="lblFollowers" Content="" HorizontalAlignment="Left" Margin="258,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.464,0.312" Height="35" Foreground="#FFE4E4E4" Width="100"/>
+        Title="TwitchBot" Height="354.93" Width="525" ResizeMode="CanMinimize">
 
-        <TextBox x:Name="txtChat" HorizontalAlignment="Left" Height="290" TextWrapping="Wrap" VerticalAlignment="Top" Width="517" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/carbon.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Label x:Name="lblViewers" Content="" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="104" Height="35" Foreground="#FFE4E4E4" FontFamily="Segoe UI Semilight"/>
+        <Label x:Name="lblViews" Content="" HorizontalAlignment="Left" Margin="154,290,0,0" VerticalAlignment="Top" Height="35" Foreground="#FFE4E4E4" Width="134" FontFamily="Segoe UI Semilight"/>
+        <Label x:Name="lblFollowers" Content="" HorizontalAlignment="Left" Margin="293,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.464,0.312" Height="35" Foreground="#FFE4E4E4" Width="155" FontFamily="Segoe UI Semilight"/>
+
+        <RichTextBox x:Name="txtChat" HorizontalAlignment="Left" Height="285" VerticalAlignment="Top" Width="509" ScrollViewer.HorizontalScrollBarVisibility="Auto"
          ScrollViewer.VerticalScrollBarVisibility="Auto"
-         ScrollViewer.CanContentScroll="True" FontFamily="Segoe UI Semibold" FontSize="14" Background="#FF1B1B1B" SelectionBrush="#FF007FFF" Foreground="#FFCDCDCD"/>
+         ScrollViewer.CanContentScroll="True" FontFamily="Segoe UI Semilight" FontSize="14" Background="#FF1B1B1B" SelectionBrush="#FF007FFF" Foreground="#FFCDCDCD" Opacity="0.7">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
 
-    
+        <ToggleButton Name="btnToggle" HorizontalAlignment="Left" Margin="445,285,0,0" VerticalAlignment="Top" Width="58"   
+         Checked = "HandleChecked" Unchecked = "HandleUnchecked" IsChecked="{Binding IsCheckedState}" Height="32" BorderThickness="0" Padding="0">
+            <ToggleButton.Resources>
+                <Image x:Key="OnImage" Source="/Images/on.png" Focusable="True" />
+                <Image x:Key="OffImage" Source="/Images/off.png" Focusable="True"/>
+            </ToggleButton.Resources>
+            <ToggleButton.Background>
+                <ImageBrush/>
+            </ToggleButton.Background>
+            
+            <ToggleButton.Style>
+                <Style TargetType="ToggleButton">
+                    <Style.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Content" Value="{StaticResource OnImage}">
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Content" Value="{StaticResource OffImage}">
+                            </Setter>
+                        </Trigger>
  
+                    </Style.Triggers>
+                    
+                </Style>
+                
+            </ToggleButton.Style>
+            
+        </ToggleButton>
 
-        
+
+
     </Grid>
-    
+
 </Window>
 
     
